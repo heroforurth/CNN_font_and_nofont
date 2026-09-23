@@ -1,7 +1,7 @@
 # Kaggle Synthetic Hard Test Set: Results
 
 We tested both trained models on the Kaggle dataset
-[pawaritpansing/synthetic-test-set](https://www.kaggle.com/datasets/pawaritpansing/synthetic-test-set).
+[pawaritpansing/synthetic-test-set](https://www.kaggle.com/datasets/pawaritpansing/synthetic-test-set), **version 3**.
 
 - **2,556 images**, all **72 classes**
 - Every image has one of **20 corruption types**: rotation, shear, erosion/dilation, salt-and-pepper
@@ -16,7 +16,11 @@ We tested both trained models on the Kaggle dataset
 | `model_nofont.pt` | real + augmentation | 2359 / 2556 | 92.29% |
 
 The model trained with font images is **+2.6 points** better. This matches our earlier font test
-(96.99% vs 89.81%).
+(Kaggle **version 2**, 432 images: 96.99% vs 89.81%).
+
+> **Dataset versions:** v1 and v2 are the 432-image font test. v2 redraws the 12 vowel/tone-mark classes
+> without the dotted circle ◌ that v1 used (`model.pt` gets 82.18% on v1 and 96.99% on v2). v3 is this 2,556-image hard set.
+> The repo's `archive/synthetic_test_set/` and `archive2/test/` are both v2.
 
 ## Accuracy by corruption type (`model.pt`)
 

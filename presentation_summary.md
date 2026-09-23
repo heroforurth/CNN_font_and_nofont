@@ -56,8 +56,8 @@ flowchart LR
 #### ชุดข้อมูลทดสอบเพิ่มเติม
 | ชุดข้อมูล | จำนวน | ลักษณะ |
 |---|---|---|
-| `archive/synthetic_test_set/` (Font test) | 432 ภาพ | 72 คลาส x 6 ฟอนต์ (Angsana, Cordia, Leelawadee, Tahoma ฯลฯ) |
-| Kaggle `synthetic-test-set` (Hard test) | 2,556 ภาพ | 72 คลาส x 20 รูปแบบการบิดเบือน (หมุน, noise, blur, รอยขีด ฯลฯ) |
+| `archive/synthetic_test_set/` (Font test, Kaggle v2) | 432 ภาพ | 72 คลาส x 6 ฟอนต์ (Angsana, Cordia, Leelawadee, Tahoma ฯลฯ) |
+| Kaggle `synthetic-test-set` (Hard test, Kaggle v3) | 2,556 ภาพ | 72 คลาส x 20 รูปแบบการบิดเบือน (หมุน, noise, blur, รอยขีด ฯลฯ) |
 
 #### ตัวอย่างโค้ด: แปลงชื่อโฟลเดอร์เป็นตัวอักษรไทย
 ```python
@@ -332,12 +332,13 @@ for images, labels in train_loader:
 
 > หมายเหตุ: Train loss สูงกว่าปกติ (~0.78) เพราะ Label Smoothing และ augmentation ที่หนัก ไม่ใช่สัญญาณของ underfitting
 > Font val (Kodchiang, Lily) เป็นฟอนต์ที่ต่างจากข้อมูลจริงมาก จึงยากกว่า Font test
+> Font test ใช้ Kaggle **version 2** ซึ่งแก้ภาพสระ/วรรณยุกต์ 12 คลาส (ั ิ ี ึ ื ุ ู ็ ่ ้ ๊ ์) ที่ใน v1 วาดบนวงกลมจุด ◌ (บน v1 `model.pt` ได้ 82.18%, บน v2 ได้ 96.99%)
 
 ---
 
 ### 11. ผลทดสอบบน Kaggle Synthetic Hard Test Set
 
-ทดสอบกับ [pawaritpansing/synthetic-test-set](https://www.kaggle.com/datasets/pawaritpansing/synthetic-test-set): **2,556 ภาพ, 72 คลาส, 20 รูปแบบการบิดเบือน**, ไฟล์หลายสกุล (png, jpg, jpeg, bmp, webp)
+ทดสอบกับ [pawaritpansing/synthetic-test-set](https://www.kaggle.com/datasets/pawaritpansing/synthetic-test-set): **version 3, 2,556 ภาพ, 72 คลาส, 20 รูปแบบการบิดเบือน**, ไฟล์หลายสกุล (png, jpg, jpeg, bmp, webp)
 
 | Model | ถูก | Accuracy |
 |---|---|---|

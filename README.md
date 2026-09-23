@@ -97,20 +97,25 @@ tone marks, digits) by fine-tuning an ImageNet-pretrained ResNet-18.
 
 ## Results
 
-| Model | Training data | Real 20% test (12,545 imgs) | Font test (432 imgs) |
-|---|---|---|---|
-| Original baseline | real only | — | 78.47% |
-| `model_nofont.pt` | real (80%) + augmentation | **97.56%** | 89.81% |
-| `model.pt` | real (80%) + font images + augmentation | 97.35% | **96.99%** |
+| Model | Training data | Real 20% test (12,545 imgs) | Font test v2 (432 imgs) | Kaggle hard test v3 (2,556 imgs) |
+|---|---|---|---|---|
+| Original baseline | real only | — | 78.47% | — |
+| `model_nofont.pt` | real (80%) + augmentation | **97.56%** | 89.81% | 92.29% |
+| `model.pt` | real (80%) + font images + augmentation | 97.35% | **96.99%** | **94.87%** |
 
 ## Data
 
 ```
 dataset/round2/<class>/          real images, 72 class folders (62,707 images)
 dataset/synth_fonts/             font-rendered images (generated, not in git: run render_fonts.py)
-archive/synthetic_test_set/      font test set: 72 classes x 6 fonts = 432 images
+archive/synthetic_test_set/      font test set: 72 classes x 6 fonts = 432 images (Kaggle version 2)
 archive2/test/                   same test images + test.csv (for TestingCNN_csv.py)
 ```
+
+Test sets come from [pawaritpansing/synthetic-test-set](https://www.kaggle.com/datasets/pawaritpansing/synthetic-test-set).
+Use the right version: **v1** draws the 12 vowel/tone marks (ั ิ ี ึ ื ุ ู ็ ่ ้ ๊ ์) on a dotted circle ◌,
+which the model never saw in training (`model.pt` scores 82.18% on v1). **v2** fixes those 72 images (96.99%).
+**v3** is a separate 2,556-image hard set with 20 corruption types.
 
 Folder names are TIS-620 codes: `161` = ก, `162` = ข, ... (`bytes([int(name)]).decode('cp874')`).
 The real data is split **80% train / 20% test**, stratified per class.
